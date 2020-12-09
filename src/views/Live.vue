@@ -3,9 +3,8 @@
     <v-row>
       <v-col cols=2></v-col>
       <v-col cols=8>
-        {{ tsdata }}
         <line-chart :chart-data="storedata" :height="270" :responsive=false></line-chart>
-        <button @click="addData()">Get Value</button>
+        <button @click="getData()">Get Value</button>
       </v-col>
       <v-col cols=2></v-col>
     </v-row>
@@ -21,16 +20,15 @@ export default {
   },
   data () {
     return {
-      tsdata: null,
-      storedata: null
+      storedata: null,
+      timer: null
     }
   },
   computed: {
   },
   mounted () {
-    this.$ajax.get('ts/serial/output')
-      .then (response => (this.tsdata = response.data.Bat_V)),
-    this.updateGraph()
+    clearInterval(this.timer);
+    this.timer = setInterval(this.getData, 2000);
   },
   methods: {
     updateGraph() {
@@ -47,9 +45,10 @@ export default {
         ]
       }
     },
-    addData () {
-      this.$store.dispatch('update_chart_value').then(this.updateGraph());
-    },
+    async getData () {
+      await this.$store.dispatch('update_chart_value');
+      this.updateGraph();
+    }
   }
 }
 </script>

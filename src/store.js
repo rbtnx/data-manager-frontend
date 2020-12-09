@@ -11,14 +11,14 @@ export default new Vuex.Store({
   mutations: {
     update_chart_value(state, new_data) {
       state.chart_value.push(new_data["Bat_V"]);
-      //state.chart_value.shift();
+      state.chart_value.shift();
       console.log(new_data);
       console.log(state.chart_value);
     }
   },
   actions: {
     update_chart_value({ commit }) {
-      axios.get("ts/serial/output")
+      return axios.get("ts/serial/output")
         .then(data => {
           commit("update_chart_value", data.data);
         })
