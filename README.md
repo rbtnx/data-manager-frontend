@@ -1,24 +1,4 @@
 # data-manager-frontend
 
 ## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+In dev mode the frontend uses a proxy for API calls. Change the file `vue.config.js` (entry `target` in section `devServer`) to the IP address of your esp32-edge device accordingly. 
